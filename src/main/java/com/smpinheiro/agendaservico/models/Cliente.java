@@ -26,7 +26,7 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
 	
-	private String name;
+	private String nome;
 	private String telefone;
 	
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

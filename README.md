@@ -1,20 +1,40 @@
-# agenda-servicos
+### As entidades desse sistema
+
+- O Agendamento de um serviço
+- Um Cliente, aquele que agenda o serviço
+- Funcionário, aquele encarregado por um serviço agendado
 
 
-Um agendamento deve ter:
+#### O agendamento deve ter:
  - um nome de cliente (nomeCliente)
  - o telefonde de um cliente (telefoneCliente)
  - um horário de agendamento (localDateTime)
- - o tipo de serviço
  - o nome do profissional
+ - o tipo de serviço
 
-Um cliente deve ter:
+```json
+{
+    "cliente": {
+        "nome": "Samuel Pinheiro",
+        "telefoneCliente": "88988776655",
+    },
+    "funcionario": {
+        "nome": "Antonio Biaggi"
+    },
+    "descricaoServico": "Corte de cabelo",
+    "dataHora": "2026-04-13T08:30:00"
+}
+```
+
+
+#### O cliente deve ter:
+
  - um nome
  - um telefone para contato
 
 ```json
 {
-    "cliente": "Samuel Pinheiro",
+    "nome": "Samuel Pinheiro",
     "telefone": "88988776655"
 }
 ```
@@ -26,9 +46,17 @@ Um cliente deve ter:
 - um novo cliente não deve ser cadastrado se o telefone informado já existir no sistema
 - um cliente só pode ser removido/deletado caso informe seus dados(nome e telefone)
 
-Um funcionário deve ter:
+#### O funcionário deve ter:
+
  - um nome
- - tempo para cada serviço 
+ - período estimado para cada serviço 
+
+```json
+{
+    "nome": "Antonio Biaggi",
+    "periodo": "35"
+}
+```
 
 Serviço:
 - Se cliente não existir, será criado no momento da

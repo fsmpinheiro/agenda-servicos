@@ -26,7 +26,7 @@ public class Funcionario {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
 	
-	private String name;
+	private String nome;
 	private String periodo;
 	
 	@OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

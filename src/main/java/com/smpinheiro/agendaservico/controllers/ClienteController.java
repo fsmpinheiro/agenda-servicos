@@ -35,7 +35,7 @@ public class ClienteController {
 	}
 	
 	@PutMapping						//	 	"/cliente?telefone="  + JSON
-	public ResponseEntity<Cliente> getCliente(
+	public ResponseEntity<Cliente> updateCliente(
 			@RequestParam("telefone") String telefone, @RequestBody Cliente updatedCliente){
 		
 		return ResponseEntity.accepted().body(clienteService.updateCliente(telefone, updatedCliente) );

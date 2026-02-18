@@ -3,6 +3,8 @@ package com.smpinheiro.agendaservico.models;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.*;
@@ -37,5 +39,10 @@ public class Agendamento {
 	
 	private String descricaoServico;
 	private LocalDateTime dataHora;
+	
+	@Value("ativo")
+	private String status;
+	@Value("false")
+	private boolean concluido;
 	
 }

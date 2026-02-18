@@ -1,6 +1,5 @@
 package com.smpinheiro.agendaservico.services;
 
-import java.lang.foreign.Linker.Option;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;

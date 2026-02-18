@@ -12,6 +12,8 @@
  - o nome do profissional
  - o tipo de serviço
 
+### Create de Agendamento
+
 ```json
 {
     "cliente": {
@@ -22,6 +24,30 @@
         "nome": "Antonio Biaggi"
     },
     "descricaoServico": "Corte de cabelo",
+    "dataHora": "2026-04-13T08:30:00"
+}
+```
+
+##### Delete de Agendamento - Funcionario
+
+```json
+{
+    "funcionario": {
+        "nome": "Antonio Biaggi"
+    },
+    "dataHora": "2026-04-13T08:30:00"
+}
+```
+
+
+##### Delete de Agendamento - Cliente
+
+```json
+{
+    "cliente": {
+        "nome": "Samuel Pinheiro",
+        "telefoneCliente": "88988776655",
+    },
     "dataHora": "2026-04-13T08:30:00"
 }
 ```
@@ -61,6 +87,8 @@
 Serviço:
 - Se cliente não existir, será criado no momento da
 solicitação do agendamento
+- A data e hora do agendamento não pode estar no passado
+- 
 
 
 

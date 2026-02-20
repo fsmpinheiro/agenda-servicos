@@ -38,7 +38,7 @@ public class AgendamentoService {
 		
 		Agendamento agendamento = new Agendamento();
 		
-		if(novoAgendam.getDataHora().isAfter(LocalDateTime.now().plusSeconds(5)) ) {
+		if(novoAgendam.getDataHora().isAfter(LocalDateTime.now().plusSeconds(2)) ) {
 			throw new IllegalArgumentException("Agendamento deve ser no futuro");
 		} else {
 			agendamento.setDataHora(novoAgendam.getDataHora() );
@@ -76,14 +76,41 @@ public class AgendamentoService {
 	}
 	
 	@Transactional
-	public void editAgendamento ( ) {
+	public Agendamento editAgendamento (Agendamento agendamento, LocalDateTime novaDataHora ) {
+
+		if(novaDataHora.isAfter(LocalDateTime.now()) ) {
+			throw new IllegalArgumentException("O Horário do agendamento deve ser futuro");
+		}
 		
+		Optional<Cliente> clienteOpt = clienteRepository.findByTelefone(agendamento.getCliente().getTelefone() );
+		if(!clienteOpt.isPresent()) {
+			throw new IllegalArgumentException("Cliente não encontrado");
+		}
+		Object cliente = clienteOpt.get();
+		
+		Agendamento agendado = getAgendamento(cliente, agendamento.getDataHora() );
+		if(Objects.isNull(agendado)) {
+			throw new IllegalArgumentException("Agendamento não encontrado");
+		}
+		
+		Long prazoServico = Long.parseLong(agendado.getFuncionario().getPeriodo() );
+		LocalDateTime novaDataHoraFim = novaDataHora.plusMinutes(prazoServico);
+		
+		Agendamento agendadoFuncionario = agendamentoRepository.findByFuncionarioBetweenDataHora(
+				agendado.getFuncionario().getNome(), novaDataHora, novaDataHoraFim);
+		if(Objects.nonNull(agendadoFuncionario)) {
+			throw new IllegalArgumentException("Horário já reservado");
+		}
+		
+		agendado.setDataHora(novaDataHora);
+		
+		return agendamentoRepository.save(agendado);
 	}
 	
 	@Transactional
 	public void deleteAgendamentoFuncionario (Agendamento agendamento) {
 		
-		Optional<Funcionario> funcionarOpt = funcionarioRepository.findByNome(agendamento.getFuncionario().getNome());
+		Optional<Funcionario> funcionarOpt = funcionarioRepository.findByNome(agendamento.getFuncionario().getNome() );
 		if(!funcionarOpt.isPresent()) {
 			throw new IllegalArgumentException("Funcionario não encontrado");
 		}
@@ -97,13 +124,13 @@ public class AgendamentoService {
 	@Transactional
 	public void deleteAgendamentoCliente (Agendamento agendamento) {
 		
-		Optional<Cliente> clienteOpt = clienteRepository.findByTelefone(agendamento.getCliente().getTelefone());
+		Optional<Cliente> clienteOpt = clienteRepository.findByTelefone(agendamento.getCliente().getTelefone() );
 		if(!clienteOpt.isPresent()) {
 			throw new IllegalArgumentException("Cliente não encontrado");
 		}
 		Object cliente = clienteOpt.get();
 		
-		Agendamento agendado = getAgendamento(cliente, agendamento.getDataHora());
+		Agendamento agendado = getAgendamento(cliente, agendamento.getDataHora() );
 		
 		agendamentoRepository.delete(agendado);
 	}

@@ -1,8 +1,8 @@
 ### As entidades desse sistema
 
 - O Agendamento de um serviço
-- Um Cliente, aquele que agenda o serviço
-- Funcionário, aquele encarregado por um serviço agendado
+- O Cliente, aquele que agenda o serviço
+- O Funcionário, aquele encarregado por um serviço agendado
 
 
 #### O agendamento deve ter:
@@ -11,6 +11,18 @@
  - um horário de agendamento (localDateTime)
  - o nome do profissional
  - o tipo de serviço
+
+Agendamento:
+- Se cliente não existir, será criado no momento da
+solicitação do agendamento
+- A data e hora do agendamento não pode estar no passado
+- Somente o Cliente pode editar seu agendamento
+- 
+- Somente o Cliente pode cancelar seu agendamento
+- Cada usuário deve ser capaz de buscar sua lista de agendamentos, 
+com intervalo padrão, mas podendo também alterar esse intervalo
+- 
+
 
 ### Create de Agendamento
 
@@ -25,6 +37,19 @@
     },
     "descricaoServico": "Corte de cabelo",
     "dataHora": "2026-04-13T08:30:00"
+}
+```
+
+##### Editar Agendamento - Cliente
+
+```json
+{
+    "cliente": {
+        "nome": "Samuel Pinheiro",
+        "telefoneCliente": "88988776655",
+    },
+    "dataHora": "2026-04-13T08:30:00",
+    "novaDataHora": "2026-	04-13T09:30:00"
 }
 ```
 
@@ -83,12 +108,6 @@
     "periodo": "35"
 }
 ```
-
-Serviço:
-- Se cliente não existir, será criado no momento da
-solicitação do agendamento
-- A data e hora do agendamento não pode estar no passado
-- 
 
 
 
